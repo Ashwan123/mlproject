@@ -32,7 +32,7 @@ class ModelTrainer:
         try:
             logging.info("Split training and test input data")
             X_train,y_train,X_test,y_test=(
-                train_array[:,:-1],
+                train_array[:,:-1], ##takeout last column and give eveything else
                 train_array[:,-1],
                 test_array[:,:-1],
                 test_array[:,-1]
@@ -85,7 +85,7 @@ class ModelTrainer:
             }
 
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
-                                             models=models,param=params)
+                                             models=models, param = params)
             
             ## To get best model score from dict
             best_model_score = max(sorted(model_report.values()))
@@ -100,7 +100,7 @@ class ModelTrainer:
             if best_model_score<0.6:
                 raise CustomException("No best model found")
             logging.info(f"Best found model on both training and testing dataset")
-
+        
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
                 obj=best_model
